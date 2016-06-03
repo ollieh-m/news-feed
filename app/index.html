@@ -1,17 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en" ng-app="newsSummaryApp">
   <head>
     <meta charset="utf-8">
     <script src="bower_components/angular/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.min.js"></script>
+
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
+    <script src="js/GetNewsService.js"></script>
+    
+    <base href='/'>
     <title>News Summary</title>
   </head>
 
   <body>
-    <div ng-controller="NewsSummaryController as controller">
-      <p>{{controller.greeting}}</p>
+    <div id="main">
+      <div ng-view></div>
     </div>
   </body>
+
 </html>
