@@ -22,7 +22,7 @@ describe('GetNewsService',function(){
   });
 
   it('returns a promise containing the body of a story from the Guardian API', function(){
-    http.expect('GET', 'http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=http://content.guardianapis.com/1?show-fields=body').respond(storyData);
+    http.expectGET('http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=http://content.guardianapis.com/1?show-fields=body').respond(storyData);
     service.getStory('1').then(function(response){
       expect(response).toEqual('This is a full story')
     });
