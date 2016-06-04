@@ -2,25 +2,16 @@ describe("app", function() {
 
 	var mock = require('protractor-http-mock');
 	var newsData = {response:{results:[{dummyattribute:'dummyvalue',id:1,webTitle:'Headline1'},{dummyattribute:'dummyvalue',id:2,webTitle:'Headline2'}]}};
-  var storyData = {}
+  var storyData = {response:{content:{fields:{body:"This is a full story"}}}};
 
   beforeEach(function(){
     mock([{
       request: {
-        path: 'http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=http://content.guardianapis.com/search?section=politics',
+        path: 'http://news-summary-api.herokuapp.com/guardian',
         method: 'GET'
       },
       response: {
         data: newsData
-      }
-    }]);
-    mock([{
-      request: {
-        path: 'http://news-summary-api.herokuapp.com/guardian?apiRequestUrl=http://content.guardianapis.com/' + newsData.response.results[0].id + '?show-fields=body',
-        method: 'GET'
-      },
-      response: {
-        data: storyData
       }
     }]);
   });
@@ -34,21 +25,26 @@ describe("app", function() {
     expect(browser.getTitle()).toEqual("News Summary");
   });
 
-  it("should display a list of 10 headlines on the homepage", function(){
+  it("should display a list of headlines on the homepage", function(){
   	browser.get('/');
   	var headlines = ($$('.headline'));
-  	// expect(headlines.get(0).getText()).toEqual('Headline1');
-  	// expect(headlines.get(1).getText()).toEqual('Headline2');
-    expect(headlines.count()).toEqual(10)
+  	expect(headlines.get(0).getText()).toEqual('Headline1');
+  	expect(headlines.get(1).getText()).toEqual('Headline2');
   });
 
-  it("should display a summary of a story when you click on it", function(){
+  it("should display the full story when you click full story", function(){
     browser.get('/');
-    ($$('.summary')).first().click();
-    expect($('.text').getText).toEqual('This is a story summary');
+    mock.add([{
+      request: {
+        path: 'http://news-summary-api.herokuapp.com/guardian',
+        method: 'GET'
+      },
+      response: {
+        data: storyData
+      }
+    }]);
+    ($$('.full')).first().click();
+    expect($('.text').getText()).toEqual('This is a full story');
   });
   
-
-
-
 });

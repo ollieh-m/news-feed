@@ -1,17 +1,23 @@
 angular.module("newsSummaryApp")
-  .controller("NewsSummaryController", ["GetNewsService", '$routeParams', function(GetNewsService,$routeParams) {
+  .controller("NewsSummaryController", ["GetNewsService", function(GetNewsService) {
     
     var self = this;
     var getnews = GetNewsService;
-    var params = $routeParams;
 
     getnews.getNews().then(function(response){
     	self.headlines = response;
     })
 
-    self.story = function(){
-    	return params.id
-    };
+  }])
+  .controller("StoryController", ["GetNewsService", '$routeParams', '$sce', function(GetNewsService,$routeParams,$sce){
+
+    var self = this;
+    var getnews = GetNewsService;
+    var params = $routeParams;
+    var sce = $sce;
+
+    getnews.getStory(params.id).then(function(response){
+      self.story = sce.trustAsHtml(response);
+    });
 
   }])
-  .controller("StorySummaryController", '$routeParams', function($routeParams))

@@ -7,9 +7,9 @@ newsSummaryApp.config(function($routeProvider,$locationProvider){
 			templateUrl: 'pages/feed.html',
 			controller: 'NewsSummaryController'
 		})
-		.when('/summary',{
-			templateUrl: 'pages/summary.html',
-			controller: 'StorySummaryController'
+		.when('/full',{
+			templateUrl: 'pages/fullstory.html',
+			controller: 'StoryController'
 		})
 
 	$locationProvider.html5Mode(true)

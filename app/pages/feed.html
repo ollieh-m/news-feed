@@ -1,12 +1,10 @@
-<body>
-	<div ng-controller="NewsSummaryController as controller">
+<div ng-controller="NewsSummaryController as controller">
 
-		<h1>Today's headlines</h1>
+	<h1>Today's headlines...</h1>
 
-		<ul ng-repeat="headline in controller.headlines">
-			<li class='headline'>{{ headline.headline }}</li>
-			<a href='summary?id={{headline.id}}'>Summary</a>
-		</ul>
+	<ul ng-repeat="headline in controller.headlines">
+		<li class='headline'>{{ headline.headline }}</li>
+		<a class='full' href='full?id={{headline.id}}'>Full story</a>
+	</ul>
 
-	</div>
-</body>
+</div>
