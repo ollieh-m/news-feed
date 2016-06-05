@@ -3,6 +3,7 @@ describe("app", function() {
 	var mock = require('protractor-http-mock');
 	var newsData = {response:{results:[{dummyattribute:'dummyvalue',id:1,webTitle:'Headline1'},{dummyattribute:'dummyvalue',id:2,webTitle:'Headline2'}]}};
   var storyData = {response:{content:{fields:{body:"This is a full story"}}}};
+  var summaryData = {text: 'Here is the full text',sentences:['These','Are','The','Sentences']}
 
   beforeEach(function(){
     mock([{
@@ -48,7 +49,22 @@ describe("app", function() {
   });
   
   it('should display a summary of the story when you click summary',function(){
-
+    browser.get('/');
+    mock.add([{
+      request: {
+        path: 'http://news-summary-api.herokuapp.com/aylien',
+        method: 'GET'
+      },
+      response: {
+        data: summaryData
+      }
+    }]);
+    ($$('.summary')).first().click();
+    var sentences = ($$('.sentence'));
+    expect(sentences.get(0).getText()).toEqual('These');
+    expect(sentences.get(1).getText()).toEqual('Are');
+    expect(sentences.get(2).getText()).toEqual('The');
+    expect(sentences.get(3).getText()).toEqual('Sentences');
   });
 
 });
