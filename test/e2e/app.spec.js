@@ -47,4 +47,8 @@ describe("app", function() {
     expect($('.text').getText()).toEqual('This is a full story');
   });
   
+  it('should display a summary of the story when you click summary',function(){
+
+  });
+
 });

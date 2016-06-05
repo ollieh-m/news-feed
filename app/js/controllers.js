@@ -21,3 +21,14 @@ angular.module("newsSummaryApp")
     });
 
   }])
+  .controller("SummaryController", ["SummaryService", '$routeParams', function(SummaryService,$routeParams){
+
+    var self = this;
+    var getsummary = SummaryService;
+    var params = $routeParams;
+
+    getsummary.getSummary(params.id).then(function(response){
+      self.summary = response;
+    });
+
+  }])

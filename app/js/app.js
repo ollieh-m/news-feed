@@ -11,6 +11,10 @@ newsSummaryApp.config(function($routeProvider,$locationProvider){
 			templateUrl: 'pages/fullstory.html',
 			controller: 'StoryController'
 		})
+		.when('/summary',{
+			templateUrl: 'pages/summary.html',
+			controller: 'SummaryController'
+		})
 
 	$locationProvider.html5Mode(true)
 	
