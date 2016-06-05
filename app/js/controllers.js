@@ -1,12 +1,22 @@
 angular.module("newsSummaryApp")
-  .controller("NewsSummaryController", ["GetNewsService", function(GetNewsService) {
+  .controller("NewsSummaryController", ["GetNewsService", "GetImageService", function(GetNewsService,GetImageService) {
     
     var self = this;
     var getnews = GetNewsService;
+    var getimage = GetImageService;
+
+    var extractSearch = function(headline){
+      return headline.replace(/(([^\s]+\s\s*){3})(.*)/,"$1")
+    };
 
     getnews.getNews().then(function(response){
     	self.headlines = response;
-    })
+      self.headlines.map(function(headline){
+        getimage.getImage(extractSearch(headline.headline)).then(function(imageurl){
+          headline.image = imageurl;
+        });
+      });
+    }); 
 
   }])
   .controller("StoryController", ["GetNewsService", '$routeParams', '$sce', function(GetNewsService,$routeParams,$sce){
