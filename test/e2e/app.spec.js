@@ -1,7 +1,6 @@
 describe("app", function() {
 
 	var mock = require('protractor-http-mock');
-  var imageMock = require('protractor-http-mock');
 	var newsData = {response:{results:[{dummyattribute:'dummyvalue',id:1,webTitle:'Headline1'},{dummyattribute:'dummyvalue',id:2,webTitle:'Headline2'}]}};
   var storyData = {response:{content:{fields:{body:"This is a full story"}}}};
   var summaryData = {text: 'Here is the full text',sentences:['These','Are','The','Sentences']}
@@ -16,8 +15,7 @@ describe("app", function() {
       response: {
         data: newsData
       }
-    }]);
-    imageMock([{
+    },{
       request: {
         path: 'https://api.gettyimages.com/v3/search/images',
         method: 'GET'
@@ -30,7 +28,6 @@ describe("app", function() {
 
   afterEach(function(){
     mock.teardown();
-    imageMock.teardown();
   });
 
   it("should get home page title", function() {
