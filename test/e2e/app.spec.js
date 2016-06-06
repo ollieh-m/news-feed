@@ -1,9 +1,11 @@
 describe("app", function() {
 
 	var mock = require('protractor-http-mock');
+  var imageMock = require('protractor-http-mock');
 	var newsData = {response:{results:[{dummyattribute:'dummyvalue',id:1,webTitle:'Headline1'},{dummyattribute:'dummyvalue',id:2,webTitle:'Headline2'}]}};
   var storyData = {response:{content:{fields:{body:"This is a full story"}}}};
   var summaryData = {text: 'Here is the full text',sentences:['These','Are','The','Sentences']}
+  var imageData = {images:[{display_sizes:[{uri:'This is the image'}]},1,2]}
 
   beforeEach(function(){
     mock([{
@@ -15,10 +17,20 @@ describe("app", function() {
         data: newsData
       }
     }]);
+    // imageMock([{
+    //   request: {
+    //     path: 'https://api.gettyimages.com/v3/search/images',
+    //     method: 'GET'
+    //   },
+    //   response: {
+    //     data: imageData
+    //   }
+    // }]);
   });
 
   afterEach(function(){
     mock.teardown();
+    // imageMock.teardown();
   });
 
   it("should get home page title", function() {
@@ -32,6 +44,13 @@ describe("app", function() {
   	expect(headlines.get(0).getText()).toEqual('Headline1');
   	expect(headlines.get(1).getText()).toEqual('Headline2');
   });
+
+  // it("should display an image for each headline", function(){
+  //   browser.get('/');
+  //   var images = ($$('img'));
+  //   expect(images.get(0).getAttribute('src')).toEqual('This is the image');
+  //   expect(images.get(1).getAttribute('src')).toEqual('This is the image');
+  // });
 
   it("should display the full story when you click full story", function(){
     browser.get('/');
