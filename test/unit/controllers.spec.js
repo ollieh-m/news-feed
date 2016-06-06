@@ -22,4 +22,10 @@ describe("NewsSummaryController", function() {
     expect(controller.headlines[0].headline).toEqual('Headline1');
     expect(controller.headlines[1].headline).toEqual('Headline2');
   });
+
+  it("initializes with an image link for each headline", function(){
+    expect(controller.headlines[0].image).toEqual('This is the image');
+    expect(controller.headlines[1].image).toEqual('This is the image');
+  });
+
 });

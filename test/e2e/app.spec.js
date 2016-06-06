@@ -17,20 +17,20 @@ describe("app", function() {
         data: newsData
       }
     }]);
-    // imageMock([{
-    //   request: {
-    //     path: 'https://api.gettyimages.com/v3/search/images',
-    //     method: 'GET'
-    //   },
-    //   response: {
-    //     data: imageData
-    //   }
-    // }]);
+    imageMock([{
+      request: {
+        path: 'https://api.gettyimages.com/v3/search/images',
+        method: 'GET'
+      },
+      response: {
+        data: imageData
+      }
+    }]);
   });
 
   afterEach(function(){
     mock.teardown();
-    // imageMock.teardown();
+    imageMock.teardown();
   });
 
   it("should get home page title", function() {
@@ -45,12 +45,13 @@ describe("app", function() {
   	expect(headlines.get(1).getText()).toEqual('Headline2');
   });
 
-  // it("should display an image for each headline", function(){
-  //   browser.get('/');
-  //   var images = ($$('img'));
-  //   expect(images.get(0).getAttribute('src')).toEqual('This is the image');
-  //   expect(images.get(1).getAttribute('src')).toEqual('This is the image');
-  // });
+  it("should display an image for each headline", function(){
+    browser.get('/');
+    var images = ($$('img'));
+    var url = 'http://localhost:8080/This%20is%20the%20image'
+    expect(images.get(0).getAttribute('src')).toEqual(url);
+    expect(images.get(1).getAttribute('src')).toEqual(url);
+  });
 
   it("should display the full story when you click full story", function(){
     browser.get('/');
